@@ -1,25 +1,32 @@
 const express = require('express');
-const cors = require("cors");
+const cors = require('cors');
 const dotenv = require('dotenv');
-const connectDB = require('./src/config/db'); // db file import karein
+const connectDB = require('./src/config/db');
 const authRoutes = require('./src/routes/authRoutes');
 const propertyRoutes = require('./src/routes/propertyRoutes');
 
 dotenv.config();
 
 const app = express();
-// Database Connect karein
+
+// Database
 connectDB();
 
 const allowedOrigins = [
     'http://localhost:5173',
+    'https://property-hub-web-gamma.vercel.app',
     'https://propertyhub-web.onrender.com'
 ];
 
-// Middleware (JSON data read karne ke liye)
-app.use(cors({
-    origin: allowedOrigins
-}));
+// CORS
+app.use(
+    cors({
+        origin: allowedOrigins,
+        methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+        allowedHeaders: ['Content-Type', 'Authorization'],
+    })
+);
+
 app.use(express.json());
 
 app.use('/api/auth', authRoutes);
