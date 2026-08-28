@@ -1,16 +1,30 @@
-const express = require('express');
-const { createProperty,getAllProperties, getPropertyById, updateProperty,deleteProperty } = require('../controllers/propertyController');
-const protect = require('../middleware/authMiddleware');
+const express = require("express");
+const {
+  createProperty,
+  getAllProperties,
+  getPropertyById,
+  updateProperty,
+  deleteProperty,
+} = require("../controllers/propertyController");
+const {
+  toggleFavorite,
+  getFavoriteProperties,
+} = require("../controllers/favoriteController");
+const authMiddleware = require("../middleware/authMiddleware");
 
 const router = express.Router();
 // after token varify user can create property route
-router.post('/', protect, createProperty);
+router.post("/", authMiddleware, createProperty);
 // for get property details
-router.get('/', getAllProperties);
-router.get('/:id', getPropertyById);
+// get favrate property
+router.get("/favorites", authMiddleware, getFavoriteProperties);
+router.get("/",authMiddleware, getAllProperties);
+router.get("/:id", authMiddleware, getPropertyById);
 // for update property
-router.put('/:id', protect, updateProperty);
+router.put("/:id", authMiddleware, updateProperty);
 // for delete property
-router.delete('/:id', protect, deleteProperty);
+router.delete("/:id", authMiddleware, deleteProperty);
+// for toggling favorite property
+router.post("/:id/favorite", authMiddleware, toggleFavorite);
 
 module.exports = router;
