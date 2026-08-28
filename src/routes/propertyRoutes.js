@@ -17,7 +17,7 @@ const router = express.Router();
 router.post("/", authMiddleware, createProperty);
 // for get property details
 // get favrate property
-router.get("/favorites", authMiddleware, getFavoriteProperties);
+router.get("/favorite", authMiddleware, getFavoriteProperties);
 router.get("/",authMiddleware, getAllProperties);
 router.get("/:id", authMiddleware, getPropertyById);
 // for update property
@@ -25,6 +25,6 @@ router.put("/:id", authMiddleware, updateProperty);
 // for delete property
 router.delete("/:id", authMiddleware, deleteProperty);
 // for toggling favorite property
-router.post("/:id/favorite", authMiddleware, toggleFavorite);
+router.post("/favorite/:id", authMiddleware, toggleFavorite);
 
 module.exports = router;
