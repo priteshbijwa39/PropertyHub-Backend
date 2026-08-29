@@ -18,8 +18,8 @@ router.post("/", authMiddleware, createProperty);
 // for get property details
 // get favrate property
 router.get("/favorite", authMiddleware, getFavoriteProperties);
-router.get("/",authMiddleware, getAllProperties);
-router.get("/:id", authMiddleware, getPropertyById);
+router.get("/", getAllProperties);
+router.get("/:id", getPropertyById);
 // for update property
 router.put("/:id", authMiddleware, updateProperty);
 // for delete property
